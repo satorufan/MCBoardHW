@@ -9,16 +9,15 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script>
 	function remove (num) {	//J쿼리로 구현해보기
 		$.ajax({
-			method : "GET",
-			url : "/JspDay09Board/board/delete.do?num=" + num
+			url : "delete.do?num=" + num
 		}).then((res)=>{
-			alert("");
-			$(location).attr("href", "http://localhost:9999/JspDay09Board/board/list.do")
+			alert("삭제하였습니다.");
+			location.href ="list.do" ;
 		});
 	}
 </script>
@@ -42,8 +41,7 @@
 	
 	<a href="list.do">뒤로</a>
 	<a href="update.do?num=${article.get(0).getNum() }">글 수정</a>
-	<a data-num="${article.get(0).getNum() }" 
-		id="${article.get(0).getNum() }"
+	<a id="${article.get(0).getNum() }"
 		onclick="remove(this.id)">글 삭제</a>
 	
 </body>

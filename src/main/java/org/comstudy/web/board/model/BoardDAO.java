@@ -41,19 +41,44 @@ public class BoardDAO {
 	
 	//글 쓰기
 	public void insert(BoardDTO dto) throws SQLException {
-		System.out.println(dto);
 		
 		//게시글 데이터 베이스 객체 불러오기
 		conn = JdbcUtil.getConnection();
 		
 		//SQL INSERT
-		String sql1 = "insert into board (author, email, title, content, passwd, writeday, readcnt, rep_root, rep_step, rep_indent) ";
-		String sql2 = "values ( ?, ?, ?, ?, ?, curdate(), 0, 0, 0, 0)";
+		String sql1 = "insert into board (author, email, title, content, passwd) ";
+		String sql2 = "values ( ?, ?, ?, ?, ?)";
 		String sql = sql1.concat(sql2);
-		System.out.println(sql);
-		pstmt = conn.prepareStatement(sql);
-		bc.insert(pstmt, dto, new BoardDAO());
 		
+		pstmt = conn.prepareStatement(sql);
+		
+		bc.insert(pstmt, dto, new BoardDAO());
+	}
+	
+	//글 삭제
+	public void delete(int num) throws SQLException {
+		
+		//게시글 데이터 베이스 객체 불러오기
+		conn = JdbcUtil.getConnection();
+		
+		//SQL SELECT
+		String sql = "delete from board where num="+num;
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.execute();
+	}
+	
+	//글 수정
+	public void update(BoardDTO dto) throws SQLException {
+		
+		//게시글 데이터 베이스 객체 불러오기
+		conn = JdbcUtil.getConnection();
+		
+		//SQL UPDATE
+		String sql = "update board set title=?, content=? where num=?";
+		pstmt = conn.prepareStatement(sql);
+		
+		bc.update(pstmt, dto, new BoardDAO());
 	}
 	
 }

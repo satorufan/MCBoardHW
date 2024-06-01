@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	function cancle () {
+		location.href="list.do";
+	}
+</script>
 </head>
 <body>
 	<h1>새 게시글 작성</h1>
@@ -18,8 +23,8 @@
 				<th>글 내용</th><td><textarea name="insertContent" placeholder="내용을 입력하세요."></textarea></td>
 			</tr>
 		</table>
-		<button id="insert" type="submit">작성</button>
-		<button id="cancle">취소</button>
+		<input value="작성" type="submit">
+		<input value="취소" type="reset" onclick="cancle()">
 	</form>
 		
 </body>

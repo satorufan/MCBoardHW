@@ -47,13 +47,23 @@ public class BoardCommand implements Command {
 	//글 작성
 	public void insert(PreparedStatement pstmt, BoardDTO dto, BoardDAO dao) throws SQLException {
 		
-		pstmt.setString(1, dto.getAuthor());
-		pstmt.setString(2, dto.getEmail());
+		pstmt.setString(1, "test");
+		pstmt.setString(2, "test@email.com");
 		pstmt.setString(3, dto.getTitle());
 		pstmt.setString(4, dto.getContent());
-		pstmt.setString(5, dto.getPasswd());
-		System.out.println(pstmt);
-		pstmt.executeQuery();
+		pstmt.setString(5, "12345");
+		pstmt.execute();
+		
+	}
+	
+	//글 수정
+	public void update(PreparedStatement pstmt, BoardDTO dto, BoardDAO dao) throws SQLException {
+		
+		pstmt.setString(1, dto.getTitle());
+		pstmt.setString(2, dto.getContent());
+		pstmt.setInt(3, dto.getNum());
+		System.out.println("pstmt : " + pstmt);
+		pstmt.execute();
 		
 	}
 
