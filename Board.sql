@@ -3,11 +3,11 @@ drop table if exists board;
 
 create table board(
 num int primary key auto_increment,
-author varchar2(100) not null,
-email varchar2(200) not null,
+foreign key (author) references member(author),
+foreign key (email) references member(author),
 title varchar2(500) not null,
 content varchar2(4000),
-passwd varchar2(12),
+foreign key (passwd) references member(author),
 writeday date default curdate(),	-- 기본입력값이 현재날짜
 readcnt int default 0,		-- 기본입력값이 0
 rep_root int default 0,

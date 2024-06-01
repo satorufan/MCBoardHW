@@ -29,10 +29,9 @@ public class BoardController extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Get 호출");
+		System.out.println("Board Get 호출");
 		
 		String urlPattern = mkUrlPattern(req);
-		System.out.println("urlPattern : " + urlPattern);
 		
 		String viewName = "";
 		String preffix = "/WEB-INF/views";
@@ -89,17 +88,17 @@ public class BoardController extends HttpServlet {
 			
 			viewName = preffix + "/board/delete.jsp"; break;
 		}
+		
 		RequestDispatcher view = req.getRequestDispatcher(viewName);
 		view.forward(req, resp);
 	}
 	
 	
-
+	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Post 호출");
+		System.out.println("Board Post 호출");
 		
 		String urlPattern = mkUrlPattern(req);
-		System.out.println("urlPattern : " + urlPattern);
 		
 		switch(urlPattern) {
 		///////////////////////////////////////////////////////////////////////
@@ -110,8 +109,8 @@ public class BoardController extends HttpServlet {
 			try {
 				dao.insert(new BoardDTO(0, "", "", title, content, "", "", 0, 0, 0, 0));
 			} catch (SQLException e) {}
-			resp.sendRedirect("list.do");break;
 			
+			resp.sendRedirect("list.do");break;
 		///////////////////////////////////////////////////////////////////////
 		case "/board/update.do" :	//게시글 업데이트
 			
@@ -121,8 +120,8 @@ public class BoardController extends HttpServlet {
 			try {
 				dao.update(new BoardDTO(num, "", "", editTitle, editContent, "", "", 0, 0, 0, 0));
 			} catch (SQLException e) {}
-			resp.sendRedirect("detail.do?num="+num);break;
 			
+			resp.sendRedirect("detail.do?num="+num);break;
 		}
 		
 	}

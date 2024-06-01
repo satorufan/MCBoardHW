@@ -40,7 +40,6 @@ public class BoardCommand implements Command {
 			list.add(new BoardDTO(num, author, email, title, content, passwd, writeday,
 					readcnt, rep_root, rep_step, rep_indent));
 		}
-		System.out.println("게시글 : " + list);
 		return list;
 	}
 	
@@ -62,7 +61,6 @@ public class BoardCommand implements Command {
 		pstmt.setString(1, dto.getTitle());
 		pstmt.setString(2, dto.getContent());
 		pstmt.setInt(3, dto.getNum());
-		System.out.println("pstmt : " + pstmt);
 		pstmt.execute();
 		
 	}
