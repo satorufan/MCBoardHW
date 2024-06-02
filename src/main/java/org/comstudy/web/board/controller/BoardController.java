@@ -11,14 +11,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.comstudy.web.board.model.BoardDAO;
 import org.comstudy.web.board.model.BoardDTO;
+import org.comstudy.web.member.controller.MemberController;
 
 @WebServlet("/board/*") // /board/ 에서 동작하는 서블릿
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	BoardDAO dao = new BoardDAO();
+	MemberController mc = new MemberController();
+	HttpSession session;
 
 	private String mkUrlPattern(HttpServletRequest req) {
 		String reqUri = req.getRequestURI();
@@ -37,6 +41,16 @@ public class BoardController extends HttpServlet {
 		String preffix = "/WEB-INF/views";
 		
 		int num = 0;
+		
+		//로그인 확인
+		mc.doGet(req,resp);
+		session = mc.checkLogin(req);
+		System.out.println(session);
+		if(session.getAttribute("id")==null) {
+			System.out.println("로그인 해주세요!");
+		} else {
+			System.out.println("환영합니다 " + session.getAttribute("id") + "님!");
+		}
 		switch(urlPattern) {
 		/////////////////////////////////////////////////////////////////////////
 		case "/board/list.do" :	//목록 불러오기
@@ -52,7 +66,7 @@ public class BoardController extends HttpServlet {
 		/////////////////////////////////////////////////////////////////////////
 		case "/board/input.do" :	//글 쓰기 페이지
 		
-		viewName = preffix + "/board/insert.jsp"; break;
+			viewName = preffix + "/board/insert.jsp"; break;
 
 		///////////////////////////////////////////////////////////////////////
 		case "/board/detail.do" :	//게시글 상세보기
